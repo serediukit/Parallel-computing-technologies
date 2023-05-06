@@ -14,23 +14,26 @@ class Ball {
     private int dx = 2;
     private int dy = 2;
 
+    private Color color = Color.GREEN;
+
 
     public Ball(Component c){
         this.canvas = c;
 
-        if(Math.random()<0.5){
-            x = new Random().nextInt(this.canvas.getWidth());
-            y = 0;
-        }else{
-            x = 0;
-            y = new Random().nextInt(this.canvas.getHeight());
-        }
-
+        x = new Random().nextInt(this.canvas.getWidth());
+        y = new Random().nextInt(this.canvas.getHeight());
 
     }
 
+    public Ball(Component c, Color cl, int posX, int posY){
+        this.canvas = c;
+        this.color = cl;
+        this.x = posX;
+        this.y = posY;
+    }
+
     public void draw (Graphics2D g2){
-        g2.setColor(Color.GREEN);
+        g2.setColor(color);
         g2.fill(new Ellipse2D.Double(x,y,XSIZE,YSIZE));
     }
 

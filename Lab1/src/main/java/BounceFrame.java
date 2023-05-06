@@ -31,6 +31,9 @@ public class BounceFrame extends JFrame {
         buttonPanel.setBackground(Color.lightGray);
         JButton buttonStart = new JButton("Start");
         JButton buttonStop = new JButton("Stop");
+        JButton buttonStartRed = new JButton("Add 1 Red");
+        JButton buttonStartBlue = new JButton("Add 10 Blue");
+        JButton buttonStartTogether = new JButton(("Start together"));
 
         buttonStart.addActionListener(new ActionListener() {
             @Override
@@ -52,17 +55,68 @@ public class BounceFrame extends JFrame {
             }
         });
 
+        buttonStartRed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Ball b = new Ball(canvas, Color.RED, 100, 100);
+                canvas.addBall(b);
+
+                BallThread thread = new BallThread(b);
+                thread.setPriority(10);
+                thread.start();
+                System.out.println("Thread name = " + thread.getName());
+            }
+        });
+
+        buttonStartBlue.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < 10; i++) {
+                    Ball b = new Ball(canvas, Color.BLUE, 100, 100);
+                    canvas.addBall(b);
+
+                    BallThread thread = new BallThread(b);
+                    thread.setPriority(1);
+                    thread.start();
+                    System.out.println("Thread name = " + thread.getName());
+                }
+            }
+        });
+
+        buttonStartTogether.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Ball b1 = new Ball(canvas, Color.RED, 100, 100);
+                canvas.addBall(b1);
+
+                BallThread thread1 = new BallThread(b1);
+                thread1.setPriority(10);
+                thread1.start();
+                System.out.println("Thread name = " + thread1.getName());
+
+                for (int i = 0; i < 100; i++) {
+                    Ball b2 = new Ball(canvas, Color.BLUE, 100, 100);
+                    canvas.addBall(b2);
+
+                    BallThread thread2 = new BallThread(b2);
+                    thread2.setPriority(1);
+                    thread2.start();
+                    System.out.println("Thread name = " + thread2.getName());
+                }
+            }
+        });
+
+        buttonPanel.add(buttonStartTogether);
+        buttonPanel.add(buttonStartRed);
+        buttonPanel.add(buttonStartBlue);
         buttonPanel.add(buttonStart);
         buttonPanel.add(buttonStop);
         content.add(buttonPanel, BorderLayout.SOUTH);
 
         ArrayList<Hole> holes = new ArrayList<>();
         holes.add(new Hole(canvas, 0, 0));
-        holes.add(new Hole(canvas, WIDTH/2 - 22, 0));
         holes.add(new Hole(canvas, WIDTH - 45, 0));
-        holes.add(new Hole(canvas, 0, HEIGHT - 130));
-        holes.add(new Hole(canvas, WIDTH/2 - 22, HEIGHT - 130));
-        holes.add(new Hole(canvas, WIDTH - 45, HEIGHT - 130));
 
         for (Hole h : holes) {
             canvas.addHole(h);

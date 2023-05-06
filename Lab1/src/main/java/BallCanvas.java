@@ -19,8 +19,11 @@ public class BallCanvas extends JPanel {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        for(Ball b : balls){
-            b.draw(g2);
+        try {
+            for(Ball b : balls){
+                b.draw(g2);
+            }
+        } catch (Exception e) {
         }
         for(Hole h : holes){
             h.draw(g2);

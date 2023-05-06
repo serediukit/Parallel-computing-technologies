@@ -17,6 +17,7 @@ public class BallThread extends Thread {
                     b.deleteInCanvas();
                     BounceFrame.rePaint();
                     System.out.println("Interrupt Thread names = " + Thread.currentThread().getName());
+                    return;
                 }
                 System.out.println("Thread name = " + Thread.currentThread().getName());
                 Thread.sleep(5);
