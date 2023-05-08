@@ -23,26 +23,26 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int MSIZE = 100;
+        int MSIZE = 1600;
         int THREADS_COUNT = 20;
         int BLOCK_SIZE = (int)Math.sqrt(MSIZE);
 
         System.out.println("TESTING? Y/n");
         Scanner text_sc = new Scanner(System.in);
-        char c = text_sc.next().charAt(0);;
+        char c = text_sc.next().charAt(0);
 
         if (c == 'Y' || c == 'y') {
             System.out.println("+----------+-------+----+------------+--------+");
-            System.out.println("| TESTNUMB | MSIZE | TC | ALGHORYTM  | TIME   |");
+            System.out.println("| TESTNUMB | MSIZE | TC | ALGORITHM  | TIME   |");
             System.out.println("+----------+-------+----+------------+--------+");
-            for (int i = 1; i <= 10; i++) {
-                MSIZE = i * i * 100;
-                int[][] matrixA = generateRandomMatrix(MSIZE, MSIZE);
-                int[][] matrixB = generateRandomMatrix(MSIZE, MSIZE);
+            int[][] matrixA = generateRandomMatrix(MSIZE, MSIZE);
+            int[][] matrixB = generateRandomMatrix(MSIZE, MSIZE);
+            for (int i = 1; i <= 9; i++) {
+                if ( i <= 5) THREADS_COUNT = i * 2;
+                else THREADS_COUNT = (i - 4) * 10;
                 System.out.print("| Test #" + i);
-                if (i == 10) System.out.print(" | " + MSIZE + " | " + THREADS_COUNT + " | Стрічковий | ");
-                else if ( i <= 3 ) System.out.print("  | " + MSIZE + "   | " + THREADS_COUNT + " | Стрічковий | ");
-                else System.out.print("  | " + MSIZE + "  | " + THREADS_COUNT + " | Стрічковий | ");
+                if (i >= 5) System.out.print("  | " + MSIZE + "  | " + THREADS_COUNT + " | Стрічковий | ");
+                else System.out.print("  | " + MSIZE + "  | " + THREADS_COUNT + "  | Стрічковий | ");
                 long startTime = System.currentTimeMillis();
                 Result result = MatrixMultiply.multiply(matrixA, matrixB, THREADS_COUNT);
                 long endTime = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class Main {
 
                 System.out.print("|          |       |    | Фокса      | ");
                 startTime = System.currentTimeMillis();
-                Result result2 = MatrixMultiply.multiplyFox(matrixA, matrixB, THREADS_COUNT);
+                Result result2 = MatrixMultiply.multiplyFox(matrixA, matrixB, BLOCK_SIZE);
                 endTime = System.currentTimeMillis();
                 wastedTime = endTime - startTime;
                 seconds = wastedTime / 1000;
@@ -84,7 +84,7 @@ public class Main {
             int choice = sc.nextInt();
 
             long startTime = System.currentTimeMillis();
-            Result result;
+            Result result = new Result(matrixA);
 
             switch (choice) {
                 case 1 -> {
@@ -103,15 +103,15 @@ public class Main {
 
             long endTime = System.currentTimeMillis();
 
-//            System.out.println("Matrix A:");
-//            printMatrix(matrixA);
-//
-//            System.out.println("Matrix B:");
-//            printMatrix(matrixB);
-//
-//
-//            System.out.println("Result:");
-//            result.printMatrix();
+            System.out.println("Matrix A:");
+            printMatrix(matrixA);
+
+            System.out.println("Matrix B:");
+            printMatrix(matrixB);
+
+
+            System.out.println("Result:");
+            result.printMatrix();
 
             long wastedTime = endTime - startTime;
             long seconds = (wastedTime / 1000) % 60;
