@@ -23,7 +23,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int MSIZE = 1600;
+        int MSIZE = 100;
         int THREADS_COUNT = 20;
         int BLOCK_SIZE = (int)Math.sqrt(MSIZE);
         int[][] matrixA = generateRandomMatrix(MSIZE, MSIZE);
@@ -50,20 +50,23 @@ public class Main {
                 System.out.println("Алгоритм Фокса");
                 result = MatrixMultiply.multiplyFox(matrixA, matrixB, BLOCK_SIZE);
             }
-            default -> result = MatrixMultiply.multiply(matrixA, matrixB, THREADS_COUNT);
+            default -> {
+                System.out.println("Не правильний ввід. Вихід...");
+                System.exit(0);
+            }
         }
 
         long endTime = System.currentTimeMillis();
 
-        System.out.println("Matrix A:");
-        printMatrix(matrixA);
+//        System.out.println("Matrix A:");
+//        printMatrix(matrixA);
+//
+//        System.out.println("Matrix B:");
+//        printMatrix(matrixB);
 
-        System.out.println("Matrix B:");
-        printMatrix(matrixB);
 
-
-        System.out.println("Result:");
-        result.printMatrix();
+//        System.out.println("Result:");
+//        result.printMatrix();
 
         long wastedTime = endTime - startTime;
         long seconds = (wastedTime / 1000) % 60;

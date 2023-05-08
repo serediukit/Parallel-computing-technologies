@@ -86,7 +86,6 @@ public class MatrixMultiply {
     private static void get2DMatrixFrom4D(int[][] dest, int[][][][] a) {
         int size = a[0][0].length;
         int count = a.length;
-        int rows = size * count;
         for (int i = 0; i < count; i++)
             for (int j = 0; j < count; j++) {
                 int[][] temp = a[i][j];
