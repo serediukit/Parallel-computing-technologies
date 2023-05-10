@@ -2,7 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 
-public class AsynchBankTest {
+public class AsyncBankTest {
     public static final int NACCOUNTS = 10;
     public static final int INITIAL_BALANCE = 10000;
 
