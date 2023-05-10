@@ -30,6 +30,7 @@ public class AsyncBankTest {
         long endTime = System.currentTimeMillis();
         long wastedTime = endTime - startTime;
 
+        System.out.println("End sum: " + bank.getSum());
         System.out.println("Wasted time: " + wastedTime);
     }
 }
