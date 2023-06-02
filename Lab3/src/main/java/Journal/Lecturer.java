@@ -8,9 +8,7 @@ public class Lecturer extends Person {
         this.academicTitle = academicTitle;
     }
 
-    public void assignMarks(Journal journal) throws InterruptedException {
-        Thread marksThread = new MarkThread(journal);
-        marksThread.start();
-        marksThread.join();
+    public Thread assignMarks(Journal journal) throws InterruptedException {
+        return new MarkThread(journal);
     }
 }

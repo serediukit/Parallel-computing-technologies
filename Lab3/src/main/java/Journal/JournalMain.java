@@ -1,5 +1,8 @@
 package main.java.Journal;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JournalMain {
     public static void main(String[] args) {
         final int weeksCount = 4;
@@ -28,12 +31,23 @@ public class JournalMain {
                 "Assistant"
         );
 
+
+
         for (int i = 0; i < weeksCount; i++) {
+            List<Thread> threads = new ArrayList<>();
             try {
-                teacher.assignMarks(journal);
-                assist1.assignMarks(journal);
-                assist2.assignMarks(journal);
-                assist3.assignMarks(journal);
+                threads.add(teacher.assignMarks(journal));
+                threads.add(assist1.assignMarks(journal));
+                threads.add(assist2.assignMarks(journal));
+                threads.add(assist3.assignMarks(journal));
+
+                for (Thread thread : threads) {
+                    thread.start();
+                }
+
+                for (Thread thread : threads) {
+                    thread.join();
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
