@@ -1,5 +1,8 @@
 package main.java.ProducerConsumer;
 
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
+
 public class ProducerConsumerMain {
     public static void main(String[] args) {
         final int size = 1000;
@@ -8,19 +11,32 @@ public class ProducerConsumerMain {
             array[i] = ((int) (Math.random() * 100)) % 100;
         }
 
-        Store store=new Store();
+                Store store = new Store();
         Producer producer = new Producer(store, array);
         Consumer consumer = new Consumer(store, array.length);
-        Thread producerThread = new Thread(producer);
-        Thread consumerThread = new Thread(consumer);
 
-        producerThread.start();
-        consumerThread.start();
+        ForkJoinPool forkJoinPool = new ForkJoinPool();
+
+        forkJoinPool.submit(producer);
+        forkJoinPool.submit(consumer);
+
+        forkJoinPool.shutdown();
 
         try {
-            producerThread.join();
-            consumerThread.join();
-        } catch (InterruptedException ignored) {}
+            forkJoinPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        Thread producerThread = new Thread(producer);
+//        Thread consumerThread = new Thread(consumer);
+//
+//        producerThread.start();
+//        consumerThread.start();
+//
+//        try {
+//            producerThread.join();
+//            consumerThread.join();
+//        } catch (InterruptedException ignored) {}
 
         System.out.println("\nProducer history: " + store.getHistory());
     }
