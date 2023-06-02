@@ -33,7 +33,7 @@ public class Journal {
         for (Group g : groups) {
             System.out.println("\n" + g.getGroupNumber());
             for (Student s : g.getStudents()) {
-                System.out.println(s.getFullName() + " marks: " + hashMap.get(s).toString());
+                System.out.println(s.getFullName() + " with " + hashMap.get(s).size() + " marks: " + hashMap.get(s).toString());
             }
         }
     }
