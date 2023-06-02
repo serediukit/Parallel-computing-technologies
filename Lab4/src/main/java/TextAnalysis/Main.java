@@ -5,14 +5,24 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Analizer analizer = new Analizer();
+        final int FILES_COUNT = 100;
+        TextFileGenerator.generateFiles(FILES_COUNT);
 
-        for (int i = 0; i < 20; i++) {
-            analizer.addText(new Text("text" + i + ".txt"));
+        for (int poolsCount = 1; poolsCount <= 10; poolsCount++) {
+            Analizer analizer = new Analizer();
+
+            for (int i = 0; i < FILES_COUNT; i++) {
+                analizer.addText(new Text("text" + i + ".txt"));
+            }
+
+            long startTime = System.currentTimeMillis();
+            analizer.Analize(poolsCount);
+            long endTime = System.currentTimeMillis();
+
+            System.out.println("Pools count: " + poolsCount);
+            System.out.printf("Time: %-6d ms%n", (endTime - startTime));
+
+            analizer.printResult();
         }
-
-        analizer.Analize(10);
-
-        analizer.printResult();
     }
 }

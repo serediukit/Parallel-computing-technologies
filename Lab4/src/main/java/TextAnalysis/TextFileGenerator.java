@@ -6,10 +6,6 @@ import java.io.IOException;
 import java.util.Random;
 
 public class TextFileGenerator {
-    public static void main(String[] args) {
-        generateFiles(20);
-    }
-
     public static void generateFiles(int count) {
         while (count-- > 0) {
             String filePath = "src\\main\\java\\TextAnalysis\\texts\\text" + count + ".txt";
