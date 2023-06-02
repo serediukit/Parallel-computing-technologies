@@ -1,6 +1,6 @@
 package main.java.ProducerConsumer;
 
-public class Main {
+public class ProducerConsumerMain {
     public static void main(String[] args) {
         final int size = 1000;
         int[] array = new int[size];
