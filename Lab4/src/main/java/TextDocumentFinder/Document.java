@@ -1,14 +1,20 @@
-package main.java.SimilarWordsFinder;
+package main.java.TextDocumentFinder;
 
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Document {
+    private final String path;
     private final List<String> lines;
 
-    public Document(List<String> lines) {
+    public Document(String path, List<String> lines) {
+        this.path = path;
         this.lines = lines;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public List<String> getLines() {
@@ -16,6 +22,7 @@ public class Document {
     }
 
     public static Document fromFile(File file) throws IOException {
+        String path = file.getPath();
         List<String> lines = new LinkedList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -27,6 +34,6 @@ public class Document {
             e.printStackTrace();
         }
 
-        return new Document(lines);
+        return new Document(path, lines);
     }
 }
