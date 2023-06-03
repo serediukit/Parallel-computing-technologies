@@ -4,9 +4,9 @@ import mpi.Request;
 import java.util.Arrays;
 
 public class NonBlockingMain {
-    private static final int NRA = 62;
-    private static final int NCA = 15;
-    private static final int NCB = 7;
+    private static final int NRA = 1000;
+    private static final int NCA = 500;
+    private static final int NCB = 1000;
     private static final int MASTER = 0;
 
     public static void main(String[] args) {
@@ -70,17 +70,17 @@ public class NonBlockingMain {
 
             long endTime = System.currentTimeMillis();
 
-            System.out.println("****");
-            System.out.println("Result Matrix:");
-
-            for(int i = 0; i < NRA; i++) {
-                for (double ci : c[i]) {
-                    System.out.printf("%6.2f ", ci);
-                }
-                System.out.println();
-            }
-
-            System.out.println("\n********");
+//            System.out.println("****");
+//            System.out.println("Result Matrix:");
+//
+//            for(int i = 0; i < NRA; i++) {
+//                for (double ci : c[i]) {
+//                    System.out.printf("%6.2f ", ci);
+//                }
+//                System.out.println();
+//            }
+//
+//            System.out.println("\n********");
             System.out.println("Time: " + (endTime - startTime));
             System.out.println("Done.");
         } else {
