@@ -11,12 +11,36 @@ public class ProducerConsumerMain {
             array[i] = ((int) (Math.random() * 100)) % 100;
         }
 
-                Store store = new Store();
+
+        Store storeT = new Store();
+        Producer producerT = new Producer(storeT, array);
+        Consumer consumerT = new Consumer(storeT, array.length);
+
+        Thread producerThread = new Thread(producerT);
+        Thread consumerThread = new Thread(consumerT);
+
+        long startTimeThread = System.currentTimeMillis();
+        producerThread.start();
+        consumerThread.start();
+
+        try {
+            producerThread.join();
+            consumerThread.join();
+        } catch (InterruptedException ignored) {}
+
+        long endTimeThread = System.currentTimeMillis();
+
+
+        System.out.println("\nProducer history: " + storeT.getHistory());
+
+
+        Store store = new Store();
         Producer producer = new Producer(store, array);
         Consumer consumer = new Consumer(store, array.length);
 
         ForkJoinPool forkJoinPool = new ForkJoinPool();
 
+        long startTimeFJP = System.currentTimeMillis();
         forkJoinPool.submit(producer);
         forkJoinPool.submit(consumer);
 
@@ -27,17 +51,12 @@ public class ProducerConsumerMain {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        Thread producerThread = new Thread(producer);
-//        Thread consumerThread = new Thread(consumer);
-//
-//        producerThread.start();
-//        consumerThread.start();
-//
-//        try {
-//            producerThread.join();
-//            consumerThread.join();
-//        } catch (InterruptedException ignored) {}
+        long endTimeFJP = System.currentTimeMillis();
+
 
         System.out.println("\nProducer history: " + store.getHistory());
+
+        System.out.println("\nTime THREAD: " + (endTimeThread - startTimeThread));
+        System.out.println("\nTime FJP: " + (endTimeFJP - startTimeFJP));
     }
 }

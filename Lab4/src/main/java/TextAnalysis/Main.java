@@ -1,8 +1,5 @@
 package main.java.TextAnalysis;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         final int FILES_COUNT = 100;

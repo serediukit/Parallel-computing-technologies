@@ -10,7 +10,7 @@ public class KeyWordsFinderMain {
         TextFileGenerator.generateFiles(20);
 
         try {
-            Folder folder = Folder.fromDirectory(new File("src\\main\\java\\SimilarWordsFinder\\texts\\"));
+            Folder folder = Folder.fromDirectory(new File("src\\main\\java\\TextDocumentFinder\\texts\\"));
             Set<String> keywords = generateKeywordsSet();
             ForkJoinPool forkJoinPool = new ForkJoinPool();
             FolderTask task = new FolderTask(folder, keywords);
