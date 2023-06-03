@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://C:/mpj-v0_44/lib" />
+      <root url="file://C:/mpj-v0_44" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://C:/mpj-v0_44/doc/javadocs" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://C:/mpj-v0_44/debugger/src" />
+      <root url="file://C:/mpj-v0_44/src" />
+      <root url="file://C:/mpj-v0_44/test" />
+    </SOURCES>
+    <jarDirectory url="file://C:/mpj-v0_44/lib" recursive="false" />
+  </library>
+</component>
