@@ -12,10 +12,10 @@ public class FinderMain {
 
         try {
             Folder folder = Folder.fromDirectory(new File("src\\main\\java\\SimilarWordsFinder\\texts\\"));
-
             ForkJoinPool forkJoinPool = new ForkJoinPool();
-            Set<String> result = forkJoinPool.invoke(new FolderTask(folder));
-            System.out.println(Arrays.toString(result.toArray()));
+            FolderTask task = new FolderTask(folder);
+            Set<String> result = forkJoinPool.invoke(task);
+            System.out.println(Arrays.toString(result.stream().sorted().toArray()));
         } catch (IOException ignored) {}
     }
 }

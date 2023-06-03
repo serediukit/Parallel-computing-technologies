@@ -8,21 +8,23 @@ import java.util.concurrent.RecursiveTask;
 
 public class FolderTask extends RecursiveTask<Set<String>> {
     private final Folder folder;
+
     FolderTask(Folder folder) {
         super();
         this.folder = folder;
     }
+
     @Override
     protected Set<String> compute() {
         List<RecursiveTask<Set<String>>> forks = new LinkedList<>();
 
-        for (var subFolder : folder.getSubFolders()) {
+        for (Folder subFolder : folder.getSubFolders()) {
             FolderTask task = new FolderTask(subFolder);
             forks.add(task);
             task.fork();
         }
 
-        for (var document : folder.getDocuments()) {
+        for (Document document : folder.getDocuments()) {
             DocumentTask task = new DocumentTask(document);
             forks.add(task);
             task.fork();
@@ -30,11 +32,13 @@ public class FolderTask extends RecursiveTask<Set<String>> {
 
         Set<String> result = new HashSet<>();
 
-        for (int i = 0; i < forks.size(); i++) {
-            var taskResult = forks.get(i).join();
+        for (RecursiveTask<Set<String>> fork : forks) {
+            Set<String> taskResult = fork.join();
 
-            if(result.isEmpty()) result.addAll(taskResult);
-            else result.retainAll(taskResult);
+            if (result.isEmpty())
+                result.addAll(taskResult);
+            else
+                result.retainAll(taskResult);
         }
 
         return result;

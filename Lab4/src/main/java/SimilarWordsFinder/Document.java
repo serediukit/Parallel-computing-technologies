@@ -5,16 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Document {
-    private final String path;
     private final List<String> lines;
 
-    public Document(String path) {
-        this.path = path;
-        this.lines = new LinkedList<>();
-    }
-
-    public Document(String path, List<String> lines) {
-        this.path = path;
+    public Document(List<String> lines) {
         this.lines = lines;
     }
 
@@ -23,17 +16,18 @@ public class Document {
     }
 
     public static Document fromFile(File file) throws IOException {
-        var path = file.getPath();
+        String path = file.getPath();
         List<String> lines = new LinkedList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line = reader.readLine();
-            while (line != null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 lines.add(line);
-                line = reader.readLine();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        return new Document(path, lines);
+        return new Document(lines);
     }
 }

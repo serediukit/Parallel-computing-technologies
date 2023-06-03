@@ -12,14 +12,16 @@ public class DocumentTask extends RecursiveTask<Set<String>> {
         super();
         this.document = document;
     }
+
     @Override
     protected Set<String> compute() {
         List<String> lines = document.getLines();
         Set<String> result = new HashSet<>();
-        for(var line : lines) {
+
+        for(String line : lines) {
             String[] words = line.trim().split("(\\s|\\p{Punct})+");
 
-            for(var word : words) {
+            for(String word : words) {
                 result.add(word.toLowerCase());
             }
         }
